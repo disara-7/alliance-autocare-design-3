@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alliance Autocare — Premium Car Care & Detailing</title>
+  <meta name="description" content="Polishes, waxes, wheel care, interior cleaners and ceramic coatings — everything your car needs, for enthusiasts and professionals.">
+  <meta name="theme-color" content="#05070b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#" class="logo" aria-label="Alliance Autocare home">
+        <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg-logo" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#3d6bff"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 3 36 12v16L20 37 4 28V12Z" fill="none" stroke="url(#lg-logo)" stroke-width="2"/>
+          <path d="M12 26 20 11l8 15M15.5 21h9" fill="none" stroke="url(#lg-logo)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo__text">Alliance<small>Autocare</small></span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#" class="is-current">Home</a>
+        <a href="#products">Retail</a>
+        <a href="#segments">Professional</a>
+        <a href="#experts">Detailing</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#footer">Contact</a>
+        <a href="#" class="nav__sale">Sale</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Cart">
+          <svg viewBox="0 0 24 24"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </button>
+        <button class="icon-btn nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <video class="hero__video" src="video.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+      <div class="hero__vignette" aria-hidden="true"></div>
+
+      <div class="hero__content container">
+        <p class="eyebrow reveal"><span class="dot"></span>Retail · Professional · Detailing</p>
+        <h1 class="hero__title reveal">
+          Everything<br>your car <span class="chrome">needs.</span>
+        </h1>
+        <p class="hero__lead reveal">From polishes to waxes, to wheel shine and interior cleaners — the finishes serious owners and detailers trust, in one place.</p>
+        <div class="hero__cta reveal">
+          <a href="#products" class="btn btn--primary">
+            Shop now
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#experts" class="btn btn--ghost">Visit detailing centre</a>
+        </div>
+      </div>
+
+      <div class="hero__hint container" aria-hidden="true">
+        <a href="#products" class="scroll-cue">Scroll<span></span></a>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Polishes</span><i></i><span>Waxes</span><i></i><span>Wheel care</span><i></i><span>Interior</span><i></i><span>Ceramic coatings</span><i></i><span>Leather care</span><i></i><span>Microfibres</span><i></i>
+        <span>Polishes</span><i></i><span>Waxes</span><i></i><span>Wheel care</span><i></i><span>Interior</span><i></i><span>Ceramic coatings</span><i></i><span>Leather care</span><i></i><span>Microfibres</span><i></i>
+      </div>
+    </div>
+
+    <!-- ============ FEATURED PRODUCTS (3D coverflow) ============ -->
+    <section class="section products" id="products">
+      <div class="container section__head">
+        <div>
+          <p class="eyebrow reveal"><span class="dot"></span>Featured products</p>
+          <h2 class="section__title reveal">Showroom picks</h2>
+        </div>
+        <div class="cf-controls reveal">
+          <button class="round-btn" id="cfPrev" aria-label="Previous product"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <span class="cf-count"><b id="cfIndex">01</b> / <span id="cfTotal">05</span></span>
+          <button class="round-btn" id="cfNext" aria-label="Next product"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+
+      <div class="coverflow" id="coverflow" tabindex="0" aria-roledescription="carousel" aria-label="Featured products">
+        <div class="cf-stage" id="cfStage"><!-- cards injected by js/ui.js --></div>
+        <div class="cf-floor" aria-hidden="true"></div>
+      </div>
+      <p class="cf-help" aria-hidden="true">Drag, swipe or use ← → keys</p>
+    </section>
+
+    <!-- ============ SEGMENTS ============ -->
+    <section class="section segments" id="segments">
+      <div class="container segments__grid">
+        <a href="#products" class="panel panel--retail reveal" data-tilt="8">
+          <div class="panel__bg" aria-hidden="true">
+            <img class="panel__img" src="images/retail.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <span class="panel__word">Retail</span>
+            <div class="panel__orb"></div>
+          </div>
+          <div class="panel__body">
+            <p class="panel__kicker">For retail enthusiasts</p>
+            <h3>Elevate your car care at home.</h3>
+            <span class="link-arrow">Explore retail <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a href="#products" class="panel panel--pro reveal" data-tilt="8">
+          <div class="panel__bg" aria-hidden="true">
+            <img class="panel__img" src="images/professional.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <span class="panel__word">Pro</span>
+            <div class="panel__orb"></div>
+          </div>
+          <div class="panel__body">
+            <p class="panel__kicker">Professional grade</p>
+            <h3>Solutions built for auto experts.</h3>
+            <span class="link-arrow">Explore professional <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="container">
+      <ul class="features">
+        <li class="feature reveal">
+          <div class="feature__icon"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9Z"/></svg></div>
+          <h4>Premium quality</h4><p>Formulations chosen for finish, not shortcuts.</p>
+        </li>
+        <li class="feature reveal">
+          <div class="feature__icon"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/></svg></div>
+          <h4>Advanced formulas</h4><p>Modern chemistry for paint, glass, trim and leather.</p>
+        </li>
+        <li class="feature reveal">
+          <div class="feature__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+          <h4>Comprehensive care</h4><p>Every surface covered, inside and out.</p>
+        </li>
+        <li class="feature reveal">
+          <div class="feature__icon"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h4>Long-lasting protection</h4><p>Shine that stays through sun, rain and road.</p>
+        </li>
+      </ul>
+      </div>
+    </section>
+
+    <!-- ============ EXPERTS (exploded paint layers) ============ -->
+    <section class="section experts" id="experts">
+      <div class="container experts__grid">
+        <div class="experts__copy">
+          <p class="eyebrow reveal"><span class="dot"></span>Detailing centre</p>
+          <h2 class="section__title reveal">We are the<br><span class="chrome">detailing experts.</span></h2>
+          <p class="lead reveal">We make your vehicle look and feel brand new. From our range of detailing services — ranging from an exterior wash and polish to interior deep cleans, full detailings and more.</p>
+
+          <ol class="layer-legend reveal" id="layerLegend">
+            <li data-layer="0"><b>01</b> Ceramic / wax protection</li>
+            <li data-layer="1"><b>02</b> Clear coat</li>
+            <li data-layer="2"><b>03</b> Base coat (colour)</li>
+            <li data-layer="3"><b>04</b> Primer</li>
+            <li data-layer="4"><b>05</b> Metal panel</li>
+          </ol>
+
+          <a href="#" class="btn btn--primary reveal">Visit detailing centre
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="layers-wrap reveal" id="layersWrap">
+          <div class="layers" id="layers" aria-label="Exploded view of a paint finish" role="img">
+            <div class="layer layer--protect" data-layer="0"><span>Protection</span></div>
+            <div class="layer layer--clear" data-layer="1"><span>Clear coat</span></div>
+            <div class="layer layer--base" data-layer="2"><span>Base coat</span></div>
+            <div class="layer layer--primer" data-layer="3"><span>Primer</span></div>
+            <div class="layer layer--metal" data-layer="4"><span>Steel</span></div>
+          </div>
+          <p class="layers-caption">Anatomy of a finish — hover to inspect</p>
+        </div>
+      </div>
+
+      <div class="container">
+        <figure class="experts__photo reveal" data-tilt="4">
+          <img src="images/detailing-centre.jpg" alt="Detailer polishing a car at the Alliance Autocare detailing centre" loading="lazy" onerror="this.parentElement.remove()">
+        </figure>
+      </div>
+
+      <div class="container stats">
+        <div class="stat reveal"><b data-count="4">0</b><span>Product families</span></div>
+        <div class="stat reveal"><b data-count="100" data-suffix="%">0</b><span>Hand finished details</span></div>
+        <div class="stat reveal"><b data-count="7" data-suffix=" days">0</b><span>Open for bookings</span></div>
+      </div>
+    </section>
+
+    <!-- ============ FIND YOUR MATCH (category panels) ============ -->
+    <section class="section match" id="match">
+      <div class="container section__head">
+        <div>
+          <p class="eyebrow reveal"><span class="dot"></span>Find your perfect match</p>
+          <h2 class="section__title reveal">Shop by surface.</h2>
+        </div>
+        <p class="lead match__lead reveal">Pick a surface to see what belongs in your kit.</p>
+      </div>
+
+      <div class="container">
+        <div class="match__panels reveal" id="matchPanels">
+          <a href="#" class="face face--body is-active" data-tilt="6">
+            <img class="face__img" src="images/bodywork.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><path d="M10 64c4-12 16-18 30-20l26-18c8-5 18-8 28-8h26c14 0 26 6 34 16l12 12c16 2 26 8 28 18v8H10Z"/><circle cx="52" cy="72" r="13"/><circle cx="152" cy="72" r="13"/></svg></div>
+            <span class="face__num">01</span>
+            <div class="face__body">
+              <h3>Bodywork</h3>
+              <p>Shampoos, polishes, waxes and coatings for a deep, protected gloss.</p>
+              <span class="link-arrow">Shop bodywork <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+          </a>
+          <a href="#" class="face face--interior" data-tilt="6">
+            <img class="face__img" src="images/interior.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><path d="M70 82V38c0-14 8-26 22-30 8-2 16 2 16 10v38h40c10 0 16 6 16 14v12Z"/><path d="M60 82h110"/></svg></div>
+            <span class="face__num">02</span>
+            <div class="face__body">
+              <h3>Interior</h3>
+              <p>Leather balms, fabric cleaners and dash care that feel factory fresh.</p>
+              <span class="link-arrow">Shop interior <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+          </a>
+          <a href="#" class="face face--wheels" data-tilt="6">
+            <img class="face__img" src="images/wheels.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><circle cx="100" cy="45" r="40"/><circle cx="100" cy="45" r="12"/><path d="M100 5v28M100 57v28M60 45h28M112 45h28M72 17l20 20M108 53l20 20M128 17l-20 20M92 53 72 73"/></svg></div>
+            <span class="face__num">03</span>
+            <div class="face__body">
+              <h3>Wheels</h3>
+              <p>Iron removers, tyre dressings and brushes for spotless rims.</p>
+              <span class="link-arrow">Shop wheels <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+          </a>
+          <a href="#" class="face face--acc" data-tilt="6">
+            <img class="face__img" src="images/accessories.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><rect x="40" y="20" width="70" height="56" rx="8"/><path d="M40 36h70M40 52h70"/><path d="M130 76V30c0-8 6-14 14-14h6v60"/><path d="M150 16h14"/></svg></div>
+            <span class="face__num">04</span>
+            <div class="face__body">
+              <h3>Accessories</h3>
+              <p>Microfibres, applicators, buckets and the tools that finish the job.</p>
+              <span class="link-arrow">Shop accessories <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CARBON SHIELD (WebGL) ============ -->
+    <section class="section shield" id="shield">
+      <img class="shield__bg" src="images/carbon-shield.jpg" alt="" loading="lazy" onerror="this.remove()">
+      <div class="container shield__grid">
+        <div class="shield__stage reveal">
+          <canvas id="shieldCanvas" aria-label="Interactive 3D paint panel showing water beading" role="img"></canvas>
+          <span class="hint-pill hint-pill--stage"><svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5M13 10V8a2 2 0 0 1 4 0v5a7 7 0 0 1-7 7h-.5A6.5 6.5 0 0 1 3 14l-.4-1.3a1.6 1.6 0 0 1 2.9-1.3L7 14"/></svg>Drag to tilt the panel</span>
+        </div>
+        <div class="shield__copy">
+          <p class="eyebrow reveal"><span class="dot dot--red"></span>Magic of Autoglym</p>
+          <h2 class="section__title reveal">Carbon Shield.<br><span class="chrome chrome--warm">Water just leaves.</span></h2>
+          <p class="lead reveal">Discover Autoglym Carbon Shield coatings — outstanding protection, deep shine and long-term value. Slide to apply the coating and watch the surface change.</p>
+
+          <div class="coat-control reveal">
+            <div class="coat-control__labels"><span>Bare clear coat</span><span>Carbon Shield</span></div>
+            <input type="range" id="coatRange" min="0" max="100" value="100" aria-label="Coating amount">
+            <div class="meters">
+              <div class="meter"><span>Water beading</span><i><b id="mBead"></b></i></div>
+              <div class="meter"><span>Gloss</span><i><b id="mGloss"></b></i></div>
+              <div class="meter"><span>Self-cleaning</span><i><b id="mClean"></b></i></div>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn--light reveal">Learn more
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS (tile wall) ============ -->
+    <!-- NOTE: placeholder reviews — replace with real customer testimonials before launch. -->
+    <section class="section testimonials" id="testimonials">
+      <!-- tile rows are built by js/ui.js from the list below -->
+      <div class="t-wall" id="tWall" aria-hidden="true"></div>
+
+      <div class="container t-head">
+        <p class="eyebrow reveal"><span class="dot"></span>Testimonials</p>
+        <h2 class="section__title reveal">Owners who<br>noticed the difference.</h2>
+      </div>
+
+      <div class="sr-only" id="tSource">
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“The team explained every product and the finish on my car has never looked this deep. Great service from start to finish.”</blockquote>
+            <figcaption><span class="avatar">A</span><div><b>Customer name</b><small>Full detail</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“Ordered the interior kit and the leather balm — easy to use and the cabin smells and feels brand new.”</blockquote>
+            <figcaption><span class="avatar">R</span><div><b>Customer name</b><small>Retail customer</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“We stock our studio from here. Consistent products, fast restocks and genuinely helpful advice.”</blockquote>
+            <figcaption><span class="avatar">D</span><div><b>Customer name</b><small>Professional detailer</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“The ceramic coating still beads water months later. Washing the car takes half the time now.”</blockquote>
+            <figcaption><span class="avatar">M</span><div><b>Customer name</b><small>Ceramic coating</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“Booked a polish before selling my car and the buyer thought it had been resprayed.”</blockquote>
+            <figcaption><span class="avatar">S</span><div><b>Customer name</b><small>Paint correction</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“Friendly staff who actually know their products. They talked me out of buying what I didn’t need.”</blockquote>
+            <figcaption><span class="avatar">J</span><div><b>Customer name</b><small>Retail customer</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“The wheel cleaner lifted brake dust I’d given up on. Rims look like the day I bought them.”</blockquote>
+            <figcaption><span class="avatar">K</span><div><b>Customer name</b><small>Retail customer</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“Interior deep clean got rid of years of dog hair and coffee stains. Couldn’t believe it was the same car.”</blockquote>
+            <figcaption><span class="avatar">P</span><div><b>Customer name</b><small>Interior detail</small></div></figcaption>
+          </figure>
+          <figure class="t-card">
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>“Fast delivery, well packed, and the wax goes on and buffs off with no streaks at all.”</blockquote>
+            <figcaption><span class="avatar">L</span><div><b>Customer name</b><small>Online order</small></div></figcaption>
+          </figure>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="newsletter">
+      <div class="container newsletter__inner reveal">
+        <div>
+          <h2>Be first to the new stuff.</h2>
+          <p>Updates on new products and exclusive offers — no spam, ever.</p>
+        </div>
+        <form class="nl-form" id="nlForm" novalidate>
+          <label class="sr-only" for="nlEmail">Email address</label>
+          <input type="email" id="nlEmail" placeholder="you@example.com" required>
+          <button class="btn btn--primary" type="submit">Subscribe</button>
+          <p class="nl-msg" id="nlMsg" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#" class="logo">
+          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 36 12v16L20 37 4 28V12Z" fill="none" stroke="url(#lg-logo)" stroke-width="2"/><path d="M12 26 20 11l8 15M15.5 21h9" fill="none" stroke="url(#lg-logo)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="logo__text">Alliance<small>Autocare</small></span>
+        </a>
+        <!-- TODO: replace with real contact details -->
+        <address>
+          Street address, City<br>
+          <a href="tel:+000000000">+00 000 000 000</a><br>
+          <a href="mailto:info@example.com">info@example.com</a>
+        </address>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <a href="#">Retail</a><a href="#">Professional</a><a href="#">Detailing</a><a href="#">Sale</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#">About us</a><a href="#">Blog</a><a href="#">Detailing centre</a><a href="#">Contact</a>
+      </div>
+      <div>
+        <h5>Help</h5>
+        <a href="#">Shipping</a><a href="#">Returns</a><a href="#">Terms &amp; conditions</a><a href="#">Privacy policy</a>
+      </div>
+      <div>
+        <h5>Follow</h5>
+        <a href="#">Facebook</a><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">TikTok</a>
+      </div>
+    </div>
+    <div class="container footer__base">
+      <span>© <span id="year"></span> Alliance Autocare. All rights reserved.</span>
+      <span class="footer__word" aria-hidden="true">Alliance Autocare</span>
+    </div>
+  </footer>
+
+  <script src="js/ui.js" defer></script>
+  <script src="js/shield.js" defer></script>
+  <script src="js/env.js" defer></script>
+</body>
+</html>
