@@ -10,9 +10,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>document.documentElement.classList.add('js', 'is-loading');</script>
 </head>
 <body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" role="status" aria-live="polite">
+    <img class="preloader__logo" src="images/logo.png" alt="" width="1711" height="919">
+    <span class="preloader__spinner" aria-hidden="true"></span>
+    <span class="sr-only">Loading…</span>
+  </div>
 
   <!-- ============ HEADER ============ -->
   <header class="nav" id="nav">
@@ -110,9 +117,8 @@
       <div class="container segments__grid">
         <a href="#products" class="panel panel--retail reveal" data-tilt="8">
           <div class="panel__bg" aria-hidden="true">
-            <img class="panel__img" src="images/retail.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <video class="panel__img" src="card1.mp4" autoplay muted loop playsinline preload="metadata"></video>
             <span class="panel__word">Retail</span>
-            <div class="panel__orb"></div>
           </div>
           <div class="panel__body">
             <p class="panel__kicker">For retail enthusiasts</p>
@@ -122,9 +128,8 @@
         </a>
         <a href="#products" class="panel panel--pro reveal" data-tilt="8">
           <div class="panel__bg" aria-hidden="true">
-            <img class="panel__img" src="images/professional.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <video class="panel__img" src="card2.mp4" autoplay muted loop playsinline preload="metadata"></video>
             <span class="panel__word">Pro</span>
-            <div class="panel__orb"></div>
           </div>
           <div class="panel__body">
             <p class="panel__kicker">Professional grade</p>
@@ -216,7 +221,7 @@
         <div class="match__panels reveal" id="matchPanels">
           <a href="#" class="face face--body is-active" data-tilt="6">
             <img class="face__img" src="images/bodywork.jpg" alt="" loading="lazy" onerror="this.remove()">
-            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><path d="M10 64c4-12 16-18 30-20l26-18c8-5 18-8 28-8h26c14 0 26 6 34 16l12 12c16 2 26 8 28 18v8H10Z"/><circle cx="52" cy="72" r="13"/><circle cx="152" cy="72" r="13"/></svg></div>
+            <div class="face__art"><img class="face__icon" src="images/surface-bodywork.jpg" alt="" loading="lazy"></div>
             <span class="face__num">01</span>
             <div class="face__body">
               <h3>Bodywork</h3>
@@ -226,7 +231,7 @@
           </a>
           <a href="#" class="face face--interior" data-tilt="6">
             <img class="face__img" src="images/interior.jpg" alt="" loading="lazy" onerror="this.remove()">
-            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><path d="M70 82V38c0-14 8-26 22-30 8-2 16 2 16 10v38h40c10 0 16 6 16 14v12Z"/><path d="M60 82h110"/></svg></div>
+            <div class="face__art"><img class="face__icon" src="images/surface-interior.jpg" alt="" loading="lazy"></div>
             <span class="face__num">02</span>
             <div class="face__body">
               <h3>Interior</h3>
@@ -236,7 +241,7 @@
           </a>
           <a href="#" class="face face--wheels" data-tilt="6">
             <img class="face__img" src="images/wheels.jpg" alt="" loading="lazy" onerror="this.remove()">
-            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><circle cx="100" cy="45" r="40"/><circle cx="100" cy="45" r="12"/><path d="M100 5v28M100 57v28M60 45h28M112 45h28M72 17l20 20M108 53l20 20M128 17l-20 20M92 53 72 73"/></svg></div>
+            <div class="face__art"><img class="face__icon" src="images/surface-wheels.jpg" alt="" loading="lazy"></div>
             <span class="face__num">03</span>
             <div class="face__body">
               <h3>Wheels</h3>
@@ -246,7 +251,7 @@
           </a>
           <a href="#" class="face face--acc" data-tilt="6">
             <img class="face__img" src="images/accessories.jpg" alt="" loading="lazy" onerror="this.remove()">
-            <div class="face__art"><svg viewBox="0 0 200 90" aria-hidden="true"><rect x="40" y="20" width="70" height="56" rx="8"/><path d="M40 36h70M40 52h70"/><path d="M130 76V30c0-8 6-14 14-14h6v60"/><path d="M150 16h14"/></svg></div>
+            <div class="face__art"><img class="face__icon" src="images/surface-accessories.jpg" alt="" loading="lazy"></div>
             <span class="face__num">04</span>
             <div class="face__body">
               <h3>Accessories</h3>
@@ -261,13 +266,77 @@
     <!-- ============ CARBON SHIELD (WebGL) ============ -->
     <section class="section shield" id="shield">
       <img class="shield__bg" src="images/carbon-shield.jpg" alt="" loading="lazy" onerror="this.remove()">
+
+      <!-- LifeShine: pick a zone (tabs or hotspots) to light it up on the car -->
+      <div class="container ls" id="lifeshine">
+        <div class="ls__copy">
+          <p class="eyebrow reveal"><span class="dot dot--gold"></span>Magic of Autoglym · 01</p>
+          <h2 class="section__title reveal">LifeShine.<br><span class="chrome chrome--gold">Showroom, for keeps.</span></h2>
+          <p class="lead reveal">Autoglym LifeShine is a professionally applied protection system that seals your paintwork, interior and wheels — keeping that new-car finish long after you drive away. Choose a zone to see what it covers.</p>
+
+          <div class="ls__tabs reveal" role="tablist" aria-label="LifeShine protection zones">
+            <button class="ls__tab is-active" role="tab" aria-selected="true" aria-controls="lsDetail" data-zone="paint"><span>01</span>Paintwork</button>
+            <button class="ls__tab" role="tab" aria-selected="false" aria-controls="lsDetail" data-zone="interior" tabindex="-1"><span>02</span>Interior</button>
+            <button class="ls__tab" role="tab" aria-selected="false" aria-controls="lsDetail" data-zone="wheels" tabindex="-1"><span>03</span>Wheels</button>
+          </div>
+
+          <div class="ls__detail reveal" id="lsDetail" role="tabpanel" aria-live="polite">
+            <h3 id="lsTitle">Paintwork</h3>
+            <p id="lsText">A durable sealant bonds to the clear coat, locking in gloss and guarding against UV, bird lime, tree sap and traffic film.</p>
+            <ul class="ls__tags" id="lsTags"><li>UV defence</li><li>Gloss lock</li><li>Easier washing</li></ul>
+          </div>
+
+          <a href="#" class="btn btn--gold reveal">Ask about LifeShine
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="ls__card reveal" id="lsCard" data-zone="paint" data-tilt="6">
+          <svg class="ls__seal" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="lsSealPath" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+            <text><textPath href="#lsSealPath">AUTOGLYM · LIFESHINE · PROTECTED · AUTOGLYM · LIFESHINE · PROTECTED ·</textPath></text>
+            <path class="ls__seal-mark" d="M60 40l14 6v12c0 9-6 17-14 20-8-3-14-11-14-20V46Z M53 59l5 5 10-10"/>
+          </svg>
+
+          <div class="ls__stage">
+            <img class="ls__shot is-active" data-zone="paint" src="images/lifeshine-paint.jpg" alt="Black saloon with deep, glossy protected paintwork">
+            <img class="ls__shot" data-zone="interior" src="images/lifeshine-interior.jpg" alt="Protected black leather interior and dashboard" loading="lazy">
+            <img class="ls__shot" data-zone="wheels" src="images/lifeshine-wheels.jpg" alt="Close-up of a protected black alloy wheel" loading="lazy">
+            <!-- glisten: a looping shine band plus twinkles placed on each photo's highlights -->
+            <span class="ls__glint" aria-hidden="true"></span>
+            <span class="ls__sparks is-active" data-zone="paint" aria-hidden="true">
+              <i style="--x:45%;--y:52%;--d:0s"></i><i style="--x:34%;--y:39%;--d:1.1s"></i><i style="--x:75%;--y:18%;--d:2s"></i><i style="--x:60%;--y:64%;--d:2.8s"></i>
+            </span>
+            <span class="ls__sparks" data-zone="interior" aria-hidden="true">
+              <i style="--x:75%;--y:36%;--d:0s"></i><i style="--x:81%;--y:25%;--d:1.2s"></i><i style="--x:52%;--y:57%;--d:2s"></i><i style="--x:57%;--y:46%;--d:2.9s"></i>
+            </span>
+            <span class="ls__sparks" data-zone="wheels" aria-hidden="true">
+              <i style="--x:49%;--y:49%;--d:0s"></i><i style="--x:60%;--y:50%;--d:1s"></i><i style="--x:39%;--y:25%;--d:1.9s"></i><i style="--x:68%;--y:29%;--d:2.7s"></i>
+            </span>
+            <span class="ls__sweep" aria-hidden="true"></span>
+            <span class="ls__label" id="lsLabel" aria-hidden="true">01 · Paintwork</span>
+            <button class="ls__spot is-active" style="--x:30%;--y:44%" data-zone="paint" tabindex="-1" aria-hidden="true"><em>Paintwork</em></button>
+            <button class="ls__spot" style="--x:73%;--y:30%" data-zone="interior" tabindex="-1" aria-hidden="true"><em>Interior</em></button>
+            <button class="ls__spot" style="--x:60%;--y:70%" data-zone="wheels" tabindex="-1" aria-hidden="true"><em>Wheels</em></button>
+          </div>
+
+          <div class="ls__meta">
+            <div><b data-count="3">0</b><span>Zones sealed</span></div>
+            <div><b>Pro</b><span>Applied by specialists</span></div>
+            <div><b>✓</b><span>Backed by guarantee</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container ls__divider" aria-hidden="true"><span></span></div>
+
       <div class="container shield__grid">
         <div class="shield__stage reveal">
           <canvas id="shieldCanvas" aria-label="Interactive 3D paint panel showing water beading" role="img"></canvas>
           <span class="hint-pill hint-pill--stage"><svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5M13 10V8a2 2 0 0 1 4 0v5a7 7 0 0 1-7 7h-.5A6.5 6.5 0 0 1 3 14l-.4-1.3a1.6 1.6 0 0 1 2.9-1.3L7 14"/></svg>Drag to tilt the panel</span>
         </div>
         <div class="shield__copy">
-          <p class="eyebrow reveal"><span class="dot dot--red"></span>Magic of Autoglym</p>
+          <p class="eyebrow reveal"><span class="dot dot--red"></span>Magic of Autoglym · 02</p>
           <h2 class="section__title reveal">Carbon Shield.<br><span class="chrome chrome--warm">Water just leaves.</span></h2>
           <p class="lead reveal">Discover Autoglym Carbon Shield coatings — outstanding protection, deep shine and long-term value. Slide to apply the coating and watch the surface change.</p>
 
@@ -401,6 +470,37 @@
       <span class="footer__word" aria-hidden="true">Alliance Autocare</span>
     </div>
   </footer>
+
+  <!-- ============ CHAT ============ -->
+  <div class="chat" id="chat">
+    <div class="chat__panel" id="chatPanel" role="dialog" aria-label="Chat with Alliance Autocare" hidden>
+      <div class="chat__head">
+        <span class="chat__avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+        </span>
+        <div>
+          <b>Alliance Assistant</b>
+          <span class="chat__status"><span class="dot"></span>Typically replies instantly</span>
+        </div>
+        <button class="icon-btn chat__close" id="chatClose" type="button" aria-label="Close chat">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="chat__log" id="chatLog" aria-live="polite"></div>
+      <div class="chat__chips" id="chatChips"></div>
+      <form class="chat__form" id="chatForm">
+        <label class="sr-only" for="chatInput">Type a message</label>
+        <input id="chatInput" type="text" placeholder="Ask about products, detailing…" autocomplete="off" maxlength="300">
+        <button class="chat__send" type="submit" aria-label="Send">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </div>
+    <button class="chat__toggle" id="chatToggle" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="chatPanel">
+      <svg class="chat__icon-open" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg>
+      <svg class="chat__icon-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
 
   <script src="js/ui.js" defer></script>
   <script src="js/shield.js" defer></script>
