@@ -242,6 +242,29 @@ function addToCart(btn) {
   }));
 })();
 
+/* ---------------------------------------------------------------- theme */
+// Dark is the default; the saved choice is applied in <head> before paint.
+(function theme() {
+  const root = document.documentElement;
+  const btn = $('#themeToggle');
+  const meta = $('meta[name="theme-color"]');
+  const sync = () => {
+    const light = root.dataset.theme === 'light';
+    btn.setAttribute('aria-pressed', String(light));
+    btn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+    meta.content = light ? '#f5f6f9' : '#05070b';
+  };
+  btn.addEventListener('click', () => {
+    const light = root.dataset.theme !== 'light';
+    root.classList.add('theme-switching');
+    if (light) root.dataset.theme = 'light'; else delete root.dataset.theme;
+    try { localStorage.setItem('aa-theme', light ? 'light' : 'dark'); } catch {}
+    sync();
+    setTimeout(() => root.classList.remove('theme-switching'), 500);
+  });
+  sync();
+})();
+
 /* ---------------------------------------------------------------- reveal + counters */
 (function reveal() {
   const io = new IntersectionObserver((entries) => {
