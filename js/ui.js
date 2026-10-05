@@ -3,19 +3,38 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 
+/* ---------------------------------------------------------------- preloader */
+// Hold the page behind the loader until the hero video can play (capped so slow
+// connections aren't stuck waiting).
+(function preloader() {
+  const loader = $('#preloader');
+  const video = $('.hero__video');
+  let done = false;
+  const hide = () => {
+    if (done) return;
+    done = true;
+    document.documentElement.classList.remove('is-loading');
+    loader.classList.add('is-done');
+    loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+  };
+  if (!video || video.readyState >= 3) return hide();
+  video.addEventListener('canplay', hide, { once: true });
+  video.addEventListener('error', hide, { once: true });
+  setTimeout(hide, 6000);
+})();
+
 /* ---------------------------------------------------------------- data */
 // Prices are placeholders copied from the old homepage — confirm before launch.
 const PRODUCTS = [
-  { name: 'Interior Conditioner + Rose Gold Rapid Gels Kit', cat: 'Bundle', price: 15990, was: 17990, shape: 'kit', body: ['#2a2f3b', '#7d8699'], label: '#c98b7a', glow: 'rgba(255,170,150,.35)' },
-  { name: 'Super Resin Polish', cat: 'Bodywork', price: 4950, shape: 'bottle', body: ['#7a0c18', '#e2394b'], label: '#f4f4f4', glow: 'rgba(255,59,79,.35)' },
+  { name: 'Interior Conditioner + Rose Gold Rapid Gels Kit', img: 'images/product-1.png', cat: 'Bundle', price: 15990, was: 17990, shape: 'kit', body: ['#2a2f3b', '#7d8699'], label: '#c98b7a', glow: 'rgba(255,170,150,.35)' },
+  { name: 'Super Resin Polish', img: 'images/product-2.png', cat: 'Bodywork', price: 4950, shape: 'bottle', body: ['#7a0c18', '#e2394b'], label: '#f4f4f4', glow: 'rgba(255,59,79,.35)' },
   { name: 'Bodywork Shampoo Conditioner', cat: 'Bodywork', price: 3200, shape: 'bottle', body: ['#0f3d86', '#4d8dff'], label: '#e8eef9', glow: 'rgba(77,141,255,.4)' },
-  { name: 'Rapid Ceramic Spray', cat: 'Protection', price: 14900, was: 16500, shape: 'spray', body: ['#15171d', '#4a4f5c'], label: '#7fe3ff', glow: 'rgba(127,227,255,.35)' },
-  { name: 'Leather Care Balm', cat: 'Interior', price: 10600, shape: 'tin', body: ['#3a2416', '#a0704c'], label: '#e8d2b0', glow: 'rgba(224,170,110,.35)' },
+  { name: 'Rapid Ceramic Spray', img: 'images/product-3.png', cat: 'Protection', price: 14900, was: 16500, shape: 'spray', body: ['#15171d', '#4a4f5c'], label: '#7fe3ff', glow: 'rgba(127,227,255,.35)' },
+  { name: 'Leather Care Balm', img: 'images/product-4.png', cat: 'Interior', price: 10600, shape: 'tin', body: ['#3a2416', '#a0704c'], label: '#e8d2b0', glow: 'rgba(224,170,110,.35)' },
 ];
 
 const fmt = (n) => `Rs. ${n.toLocaleString('en-US')}`;
-// Product photos live at images/products/<slug>.png; the SVG bottle is the fallback.
-const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// Products without an `img` photo fall back to the SVG bottle.
 
 /* ---------------------------------------------------------------- product art (SVG) */
 function spray(c, id) {
@@ -86,7 +105,7 @@ function productArt(p, i) {
         <span class="cf-card__tag">${p.cat}</span>
         ${p.was ? `<span class="cf-card__badge">−${Math.round((1 - p.price / p.was) * 100)}%</span>` : ''}
         <div class="cf-card__art">
-          <img src="images/products/${slug(p.name)}.png" alt="${p.name}" loading="lazy" onerror="this.remove()">
+          ${p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.remove()">` : ''}
           ${productArt(p, i)}
         </div>
         <h3>${p.name}</h3>
@@ -309,6 +328,74 @@ if (finePointer) {
   });
 })();
 
+/* ---------------------------------------------------------------- LifeShine zones */
+(function lifeshine() {
+  const card = $('#lsCard');
+  if (!card) return;
+  const tabs = $$('.ls__tab');
+  const spots = $$('.ls__spot', card);
+  const shots = $$('.ls__shot, .ls__sparks', card);
+  const stage = $('.ls__stage', card);
+  const label = $('#lsLabel');
+  const detail = $('#lsDetail');
+  const zones = {
+    paint: ['Paintwork', 'A durable sealant bonds to the clear coat, locking in gloss and guarding against UV, bird lime, tree sap and traffic film.', ['UV defence', 'Gloss lock', 'Easier washing']],
+    interior: ['Interior', 'Fabric and leather protection repels spills and everyday stains, so the cabin stays as fresh as the day you collected it.', ['Spill repellent', 'Leather care', 'Stain guard']],
+    wheels: ['Wheels', 'A protective barrier on the alloys helps stop brake dust and road grime bonding, so rims rinse clean and keep their shine.', ['Brake-dust barrier', 'Rinses clean', 'Lasting shine']],
+  };
+  const order = Object.keys(zones);
+  let current = 'paint', timer = null;
+
+  const show = (zone, focusTab) => {
+    if (zone === current) return;
+    current = zone;
+    card.dataset.zone = zone;
+    tabs.forEach((t) => {
+      const on = t.dataset.zone === zone;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      if (on && focusTab) t.focus();
+    });
+    spots.forEach((s) => s.classList.toggle('is-active', s.dataset.zone === zone));
+    shots.forEach((s) => s.classList.toggle('is-active', s.dataset.zone === zone));
+    label.textContent = `0${order.indexOf(zone) + 1} · ${zones[zone][0]}`;
+    stage.classList.remove('is-sweep');
+    label.classList.remove('is-swap');
+    void stage.offsetWidth; // restart the light sweep + label animations
+    stage.classList.add('is-sweep');
+    label.classList.add('is-swap');
+    const [title, text, tags] = zones[zone];
+    $('#lsTitle').textContent = title;
+    $('#lsText').textContent = text;
+    $('#lsTags').innerHTML = tags.map((t) => `<li>${t}</li>`).join('');
+    detail.classList.remove('is-swap');
+    void detail.offsetWidth; // restart the swap animation
+    detail.classList.add('is-swap');
+  };
+
+  // any manual choice stops the auto tour
+  const pick = (zone, focusTab) => { clearInterval(timer); timer = null; show(zone, focusTab); };
+  [...tabs, ...spots].forEach((el) => el.addEventListener('click', () => pick(el.dataset.zone)));
+  tabs.forEach((t, i) => t.addEventListener('keydown', (e) => {
+    const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    pick(tabs[(i + step + tabs.length) % tabs.length].dataset.zone, true);
+  }));
+
+  // gently tour the zones while the card is on screen, until the visitor takes over
+  if (!reduced) {
+    let started = false;
+    new IntersectionObserver(([e], io) => {
+      if (!e.isIntersecting || started) return;
+      started = true;
+      io.disconnect();
+      timer = setInterval(() => show(order[(order.indexOf(current) + 1) % order.length]), 3800);
+    }, { threshold: 0.5 }).observe(card);
+  }
+})();
+
 /* ---------------------------------------------------------------- testimonial wall */
 (function testimonials() {
   const section = $('#testimonials');
@@ -388,6 +475,109 @@ if (finePointer) {
     msg.textContent = ok ? 'Thanks — you’re on the list.' : 'Please enter a valid email address.';
     if (ok) form.reset();
     // TODO: POST to your email provider here.
+  });
+})();
+
+/* ---------------------------------------------------------------- chat */
+// Scripted keyword replies. To plug in a real assistant, make `reply()` call
+// your chat API and return its answer.
+(function chat() {
+  const root = $('#chat');
+  const panel = $('#chatPanel');
+  const toggle = $('#chatToggle');
+  const log = $('#chatLog');
+  const chips = $('#chatChips');
+  const form = $('#chatForm');
+  const input = $('#chatInput');
+  const STARTERS = ['Shop products', 'Book detailing', 'Ceramic coating', 'Contact us'];
+
+  // [pattern, reply, optional [href, link label]] — first match wins.
+  const RULES = [
+    [/\b(hi|hello|hey)\b/, 'Hey there! What can I help you with today?'],
+    [/life ?shine|guarantee/, 'Autoglym LifeShine is a professionally applied protection system for your paintwork, interior and wheels.', ['#lifeshine', 'Explore LifeShine']],
+    [/ceramic|coat|protect|bead/, 'Our ceramic coatings add long-lasting gloss and water beading. Try the interactive panel to see the difference.', ['#shield', 'See Carbon Shield']],
+    [/detail|book|appointment|centre|center|valet/, 'Our detailing centre handles everything from a quick valet to full paint correction.', ['#experts', 'Visit the detailing centre']],
+    [/\bpro\b|professional|trade|bulk|wholesale|business/, 'We supply professional detailers and workshops with trade-size products.', ['#segments', 'Professional range']],
+    [/match|which|recommend|best|surface|wheel|interior|leather/, 'Tell us the surface and we’ll point you to the right product.', ['#match', 'Shop by surface']],
+    [/shop|product|buy|polish|wax|shampoo|price|sale/, 'Browse our showroom picks — polishes, waxes, coatings and interior care.', ['#products', 'Showroom picks']],
+    [/ship|deliver|return|refund|order/, 'For delivery, returns or order questions, our team will sort you out.', ['#footer', 'Contact details']],
+    [/contact|call|phone|email|human|person|talk/, 'You can reach our team by phone or email.', ['#footer', 'Contact details']],
+    [/thank/, 'Any time! Anything else I can help with?'],
+  ];
+  const FALLBACK = ['I’m not sure about that one yet — our team can help.', ['#footer', 'Contact us']];
+
+  const reply = (text) => {
+    const hit = RULES.find(([re]) => re.test(text.toLowerCase()));
+    return hit ? hit.slice(1) : FALLBACK;
+  };
+
+  function add(from, text, link) {
+    const msg = document.createElement('div');
+    msg.className = `chat__msg chat__msg--${from}`;
+    msg.textContent = text;
+    if (link) {
+      const a = document.createElement('a');
+      a.href = link[0];
+      a.textContent = `${link[1]} →`;
+      // on phones the panel covers the page, so get out of the way
+      a.addEventListener('click', () => { if (innerWidth <= 720) setOpen(false); });
+      msg.append(document.createElement('br'), a);
+    }
+    log.append(msg);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function showChips(list) {
+    chips.replaceChildren(...list.map((label) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = label;
+      b.addEventListener('click', () => send(label));
+      return b;
+    }));
+  }
+
+  function send(text) {
+    text = text.trim();
+    if (!text) return;
+    add('user', text);
+    chips.replaceChildren();
+    const typing = document.createElement('div');
+    typing.className = 'chat__msg chat__msg--bot chat__typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    log.append(typing);
+    log.scrollTop = log.scrollHeight;
+    setTimeout(() => {
+      typing.remove();
+      add('bot', ...reply(text));
+      showChips(STARTERS);
+    }, reduced ? 0 : 650);
+  }
+
+  let greeted = false;
+  function setOpen(open) {
+    panel.hidden = !open;
+    root.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Close chat' : 'Open chat');
+    if (!open) return;
+    if (!greeted) {
+      greeted = true;
+      add('bot', 'Hi! I’m the Alliance Autocare assistant. How can I help?');
+      showChips(STARTERS);
+    }
+    if (finePointer) input.focus();
+  }
+
+  toggle.addEventListener('click', () => setOpen(panel.hidden));
+  $('#chatClose').addEventListener('click', () => { setOpen(false); toggle.focus(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); toggle.focus(); }
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    send(input.value);
+    input.value = '';
   });
 })();
 
