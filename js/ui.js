@@ -243,7 +243,7 @@ function addToCart(btn) {
 })();
 
 /* ---------------------------------------------------------------- theme */
-// Dark is the default; the saved choice is applied in <head> before paint.
+// Every visit opens in dark; the toggle only lasts for the current page view.
 (function theme() {
   const root = document.documentElement;
   const btn = $('#themeToggle');
@@ -258,7 +258,6 @@ function addToCart(btn) {
     const light = root.dataset.theme !== 'light';
     root.classList.add('theme-switching');
     if (light) root.dataset.theme = 'light'; else delete root.dataset.theme;
-    try { localStorage.setItem('aa-theme', light ? 'light' : 'dark'); } catch {}
     sync();
     setTimeout(() => root.classList.remove('theme-switching'), 500);
   });
