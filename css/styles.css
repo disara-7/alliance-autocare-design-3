@@ -283,7 +283,8 @@ a:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(4px); }
 /* ==========================================================================
    PRODUCTS — coverflow
    ========================================================================== */
-.products { overflow: hidden; }
+.products { overflow: hidden; padding-bottom: clamp(32px, 4vw, 56px); }
+.match { padding-top: clamp(32px, 4vw, 56px); }
 .cf-controls { display: flex; align-items: center; gap: 16px; }
 .cf-count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 60px; text-align: center; }
 .cf-count b { color: var(--text); font-weight: 600; }
@@ -294,7 +295,6 @@ a:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(4px); }
 .cf-stage { position: absolute; inset: 0; transform-style: preserve-3d; }
 .cf-floor { position: absolute; left: 50%; bottom: 0; width: 900px; height: 140px; transform: translateX(-50%); background: radial-gradient(50% 50% at 50% 0%, rgba(77,141,255,.18), transparent 70%); pointer-events: none; }
 .cf-help { text-align: center; color: var(--dim); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin: 12px 0 0; }
-.cf-more { display: flex; justify-content: center; margin-top: 32px; }
 
 .cf-card {
   position: absolute; left: 50%; top: 10px; width: 300px; margin-left: -150px;
