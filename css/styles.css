@@ -223,6 +223,9 @@ a:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(4px); }
 .nav__links { display: flex; align-items: center; gap: 4px; }
 .nav__links a { position: relative; padding: 8px 14px; font-size: 14px; color: var(--muted); border-radius: 999px; transition: color .3s, background .3s; }
 .nav__links a:hover, .nav__links a.is-current { color: var(--text); }
+/* dark mode: brighter links so they read over the hero video */
+:root:not([data-theme="light"]) .nav__links a { color: #d3d9e5; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+:root:not([data-theme="light"]) .nav__links a:is(:hover, .is-current) { color: #fff; }
 .nav__links a.is-current::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; border-radius: 50%; background: var(--accent-2); transform: translateX(-50%); }
 .nav__sale { color: #fff !important; background: rgba(255, 59, 79, .14); border: 1px solid rgba(255, 59, 79, .4); }
 .nav__sale:hover { background: var(--red) !important; }
@@ -344,7 +347,7 @@ a:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(4px); }
 /* ==========================================================================
    SEGMENTS + FEATURES
    ========================================================================== */
-.segments { padding-top: 40px; }
+.segments { padding-top: 40px; padding-bottom: clamp(40px, 6vw, 80px); }
 .segments__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .panel {
   position: relative; min-height: 460px; border-radius: 28px; overflow: hidden; display: flex; align-items: flex-end;
@@ -667,7 +670,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
 /* ==========================================================================
    TESTIMONIALS — tile wall
    ========================================================================== */
-.testimonials { overflow: hidden; min-height: 860px; display: flex; align-items: center; }
+.testimonials { overflow: hidden; min-height: 960px; display: flex; align-items: center; }
 .t-wall {
   /* one row above the heading, one below */
   position: absolute; inset: 0; padding: 70px 0; display: flex; flex-direction: column; justify-content: space-between;
@@ -824,7 +827,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
   .nl-form input { flex-basis: 100%; }
   .nl-form .btn { width: 100%; justify-content: center; }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .testimonials { min-height: 760px; }
+  .testimonials { min-height: 840px; }
   .t-wall { padding: 50px 0; }
   .t-row { gap: 16px; }
   .t-card { width: 260px; padding: 20px 22px; }
@@ -895,6 +898,8 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
 
 /* nav */
 [data-theme="light"] .nav.is-scrolled { background: rgba(245,246,249,.78); }
+/* over the (dark) hero, before scrolling */
+[data-theme="light"] .nav:not(.is-scrolled):not(.is-open) { --text: #eef1f7; --muted: #c3cad8; --surface-2: rgba(255,255,255,.1); --accent-2: #7fe3ff; color: var(--text); }
 [data-theme="light"] .nav__sale { color: var(--red) !important; background: rgba(224,36,58,.08); border-color: rgba(224,36,58,.35); }
 [data-theme="light"] .nav__sale:hover { color: #fff !important; }
 
@@ -905,11 +910,17 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
 [data-theme="light"] .chat__chips button:hover { border-color: rgba(12,22,44,.3); }
 [data-theme="light"] .chat__form input { background: #fff; }
 
-/* hero: wash the video with the page colour instead of black */
-[data-theme="light"] .hero { background: radial-gradient(120% 80% at 70% 40%, #dfe7f7 0%, var(--bg) 60%); }
+/* hero: stays dark over the video, with light text, slightly lifted from dark mode */
+[data-theme="light"] .hero {
+  --text: #eef1f7; --muted: #c3cad8; --line-2: rgba(255,255,255,.22); --accent-2: #7fe3ff;
+  color: var(--text); background: radial-gradient(120% 80% at 70% 40%, #1a2440 0%, #0c1220 60%);
+}
 [data-theme="light"] .hero__video { opacity: .75; }
-[data-theme="light"] .hero__vignette { background: linear-gradient(90deg, rgba(245,246,249,.94) 0%, rgba(245,246,249,.6) 45%, rgba(245,246,249,.05) 75%), linear-gradient(0deg, var(--bg) 0%, transparent 25%); }
-[data-theme="light"] .hero__lead { color: #3d465a; }
+[data-theme="light"] .hero__vignette { background: linear-gradient(90deg, rgba(10,16,30,.7) 0%, rgba(10,16,30,.25) 45%, transparent 70%), linear-gradient(0deg, rgba(10,16,30,.6) 0%, transparent 25%); }
+[data-theme="light"] .hero__lead { color: #d3d9e5; }
+[data-theme="light"] :is(.hero, .experts) .chrome { background-image: linear-gradient(100deg, #fff 0%, #a9c4ff 30%, #5e7cb8 48%, #e6f2ff 62%, #7fe3ff 80%, #fff 100%); }
+[data-theme="light"] .hero .btn--ghost { background: rgba(255,255,255,.08); }
+[data-theme="light"] .hero .btn--ghost:hover { border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.14); }
 
 [data-theme="light"] .marquee span { color: #2a3245; }
 
@@ -925,17 +936,19 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
 /* features */
 [data-theme="light"] .feature__icon { filter: drop-shadow(0 10px 16px rgba(20,30,60,.2)); }
 
-/* experts */
+/* experts: stays dark (like the hero) so the car-surface photo shows through */
+[data-theme="light"] .experts {
+  --bg: #0c1220; --bg-2: #111a2e;
+  --surface: rgba(255,255,255,.035); --surface-2: rgba(255,255,255,.06);
+  --line: rgba(255,255,255,.1); --line-2: rgba(255,255,255,.18);
+  --text: #eef1f7; --muted: #b4bccd; --dim: #8b94a8; --accent: #4d8dff; --accent-2: #7fe3ff;
+  color: var(--text);
+}
 [data-theme="light"] .experts::before {
   background:
-    linear-gradient(90deg, rgba(236,239,244,.92) 0%, rgba(236,239,244,.7) 55%, rgba(236,239,244,.45) 100%),
+    linear-gradient(90deg, rgba(12,18,32,.7) 0%, rgba(12,18,32,.35) 55%, rgba(12,18,32,.15) 100%),
     url("../images/car%20surface.png") center / cover no-repeat;
 }
-[data-theme="light"] .layer { box-shadow: 0 0 0 1px rgba(12,22,44,.1) inset; }
-[data-theme="light"] .layer[data-layer="0"] { background: linear-gradient(135deg, rgba(10,147,189,.3), rgba(10,147,189,.06)); box-shadow: 0 0 0 1px rgba(10,147,189,.55) inset, 0 0 40px rgba(10,147,189,.15); }
-[data-theme="light"] .layer[data-layer="1"] { background: linear-gradient(135deg, rgba(255,255,255,.85), rgba(220,228,240,.5)); box-shadow: 0 0 0 1px rgba(12,22,44,.18) inset; }
-[data-theme="light"] .layer[data-layer="4"] { box-shadow: 0 60px 80px -20px rgba(20,30,60,.45); }
-[data-theme="light"] .layer.is-hot { filter: brightness(1.1); box-shadow: 0 0 0 2px var(--accent-2) inset, 0 0 50px rgba(10,147,189,.3); }
 
 /* match: light cards; the black-backed renders keep their original colours and sit
    in a crisp rounded tile instead of being screen-blended into the card */
@@ -994,12 +1007,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
 @media (max-width: 1080px) {
   [data-theme="light"] .nav__links, [data-theme="light"] .nav.is-open { background: rgba(245,246,249,.97); }
   [data-theme="light"] .nav__sale { background: none !important; }
-  [data-theme="light"] .layers-wrap::before {
-    background:
-      radial-gradient(70% 60% at 50% 50%, rgba(236,239,244,.4), rgba(236,239,244,.8)),
-      url("../images/car%20surface.png") 85% center / cover no-repeat;
-  }
 }
 @media (max-width: 720px) {
-  [data-theme="light"] .hero__vignette { background: linear-gradient(0deg, rgba(245,246,249,.97) 0%, rgba(245,246,249,.7) 55%, rgba(245,246,249,.25) 100%); }
+  [data-theme="light"] .hero__vignette { background: linear-gradient(0deg, rgba(10,16,30,.85) 0%, rgba(10,16,30,.4) 55%, rgba(10,16,30,.1) 100%); }
 }
