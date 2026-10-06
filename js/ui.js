@@ -28,7 +28,7 @@ const finePointer = window.matchMedia('(pointer: fine)').matches;
 const PRODUCTS = [
   { name: 'Interior Conditioner + Rose Gold Rapid Gels Kit', img: 'images/product-1.png', cat: 'Bundle', price: 15990, was: 17990, shape: 'kit', body: ['#2a2f3b', '#7d8699'], label: '#c98b7a', glow: 'rgba(255,170,150,.35)' },
   { name: 'Super Resin Polish', img: 'images/product-2.png', cat: 'Bodywork', price: 4950, shape: 'bottle', body: ['#7a0c18', '#e2394b'], label: '#f4f4f4', glow: 'rgba(255,59,79,.35)' },
-  { name: 'Bodywork Shampoo Conditioner', cat: 'Bodywork', price: 3200, shape: 'bottle', body: ['#0f3d86', '#4d8dff'], label: '#e8eef9', glow: 'rgba(77,141,255,.4)' },
+  { name: 'Bodywork Shampoo Conditioner', img: 'images/product-4.png', cat: 'Bodywork', price: 3200, shape: 'bottle', body: ['#0f3d86', '#4d8dff'], label: '#e8eef9', glow: 'rgba(77,141,255,.4)' },
   { name: 'Rapid Ceramic Spray', img: 'images/product-3.png', cat: 'Protection', price: 14900, was: 16500, shape: 'spray', body: ['#15171d', '#4a4f5c'], label: '#7fe3ff', glow: 'rgba(127,227,255,.35)' },
   { name: 'Leather Care Balm', img: 'images/product-4.png', cat: 'Interior', price: 10600, shape: 'tin', body: ['#3a2416', '#a0704c'], label: '#e8d2b0', glow: 'rgba(224,170,110,.35)' },
 ];
