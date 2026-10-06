@@ -12,8 +12,6 @@
   <link rel="stylesheet" href="css/styles.css">
   <script>
     document.documentElement.classList.add('js', 'is-loading');
-    // apply the saved theme before first paint so there's no dark/light flash
-    try { if (localStorage.getItem('aa-theme') === 'light') { document.documentElement.dataset.theme = 'light'; document.querySelector('meta[name="theme-color"]').content = '#f5f6f9'; } } catch (e) {}
   </script>
 </head>
 <body>
@@ -79,10 +77,10 @@
         <p class="hero__lead reveal">From polishes to waxes, to wheel shine and interior cleaners — the finishes serious owners and detailers trust, in one place.</p>
         <div class="hero__cta reveal">
           <a href="#products" class="btn btn--primary">
-            Shop now
+            Shop car care
             <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a href="#experts" class="btn btn--ghost">Visit detailing centre</a>
+          <a href="#experts" class="btn btn--ghost">Explore detailing</a>
         </div>
       </div>
 
@@ -95,6 +93,60 @@
         <span>Polishes</span><i></i><span>Waxes</span><i></i><span>Wheel care</span><i></i><span>Interior</span><i></i><span>Ceramic coatings</span><i></i><span>Leather care</span><i></i><span>Microfibres</span><i></i>
       </div>
     </div>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features-strip">
+      <div class="container">
+      <ul class="features">
+        <li class="feature reveal">
+          <img class="feature__icon" src="images/features/premium-quality.png" alt="" width="256" height="256" loading="lazy">
+          <h4>Premium quality</h4><p>Formulations chosen for finish, not shortcuts.</p>
+        </li>
+        <li class="feature reveal">
+          <img class="feature__icon" src="images/features/advanced-formulas.png" alt="" width="256" height="256" loading="lazy">
+          <h4>Advanced formulas</h4><p>Modern chemistry for paint, glass, trim and leather.</p>
+        </li>
+        <li class="feature reveal">
+          <img class="feature__icon" src="images/features/comprehensive-care.png" alt="" width="256" height="256" loading="lazy">
+          <h4>Comprehensive care</h4><p>Every surface covered, inside and out.</p>
+        </li>
+        <li class="feature reveal">
+          <img class="feature__icon" src="images/features/long-lasting-protection.png" alt="" width="256" height="256" loading="lazy">
+          <h4>Long-lasting protection</h4><p>Shine that stays through sun, rain and road.</p>
+        </li>
+      </ul>
+      </div>
+    </section>
+
+    <!-- ============ SEGMENTS ============ -->
+    <section class="section segments" id="segments">
+      <div class="container segments__grid">
+        <a href="#products" class="panel panel--retail reveal" data-tilt="8">
+          <div class="panel__bg" aria-hidden="true">
+            <video class="panel__img" src="card1.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            <span class="panel__word">Retail</span>
+          </div>
+          <div class="panel__body">
+            <p class="panel__kicker">For retail enthusiasts</p>
+            <h3>Care for it yourself.</h3>
+            <p class="panel__text">Everything you need to clean, restore and protect your car at home.</p>
+            <span class="link-arrow">Shop products <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a href="#experts" class="panel panel--pro reveal" data-tilt="8">
+          <div class="panel__bg" aria-hidden="true">
+            <video class="panel__img" src="card2.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            <span class="panel__word">Pro</span>
+          </div>
+          <div class="panel__body">
+            <p class="panel__kicker">Professional grade</p>
+            <h3>Leave it to the experts.</h3>
+            <p class="panel__text">Professional detailing solutions for a finish that goes beyond a normal wash.</p>
+            <span class="link-arrow">Explore detailing <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </section>
 
     <!-- ============ FEATURED PRODUCTS (3D coverflow) ============ -->
     <section class="section products" id="products">
@@ -115,54 +167,11 @@
         <div class="cf-floor" aria-hidden="true"></div>
       </div>
       <p class="cf-help" aria-hidden="true">Drag, swipe or use ← → keys</p>
-    </section>
-
-    <!-- ============ SEGMENTS ============ -->
-    <section class="section segments" id="segments">
-      <div class="container segments__grid">
-        <a href="#products" class="panel panel--retail reveal" data-tilt="8">
-          <div class="panel__bg" aria-hidden="true">
-            <video class="panel__img" src="card1.mp4" autoplay muted loop playsinline preload="metadata"></video>
-            <span class="panel__word">Retail</span>
-          </div>
-          <div class="panel__body">
-            <p class="panel__kicker">For retail enthusiasts</p>
-            <h3>Elevate your car care at home.</h3>
-            <span class="link-arrow">Explore retail <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
+      <div class="cf-more reveal">
+        <a href="#" class="btn btn--primary">
+          Shop more
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#products" class="panel panel--pro reveal" data-tilt="8">
-          <div class="panel__bg" aria-hidden="true">
-            <video class="panel__img" src="card2.mp4" autoplay muted loop playsinline preload="metadata"></video>
-            <span class="panel__word">Pro</span>
-          </div>
-          <div class="panel__body">
-            <p class="panel__kicker">Professional grade</p>
-            <h3>Solutions built for auto experts.</h3>
-            <span class="link-arrow">Explore professional <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </a>
-      </div>
-
-      <div class="container">
-      <ul class="features">
-        <li class="feature reveal">
-          <img class="feature__icon" src="images/features/premium-quality.png" alt="" width="256" height="256" loading="lazy">
-          <h4>Premium quality</h4><p>Formulations chosen for finish, not shortcuts.</p>
-        </li>
-        <li class="feature reveal">
-          <img class="feature__icon" src="images/features/advanced-formulas.png" alt="" width="256" height="256" loading="lazy">
-          <h4>Advanced formulas</h4><p>Modern chemistry for paint, glass, trim and leather.</p>
-        </li>
-        <li class="feature reveal">
-          <img class="feature__icon" src="images/features/comprehensive-care.png" alt="" width="256" height="256" loading="lazy">
-          <h4>Comprehensive care</h4><p>Every surface covered, inside and out.</p>
-        </li>
-        <li class="feature reveal">
-          <img class="feature__icon" src="images/features/long-lasting-protection.png" alt="" width="256" height="256" loading="lazy">
-          <h4>Long-lasting protection</h4><p>Shine that stays through sun, rain and road.</p>
-        </li>
-      </ul>
       </div>
     </section>
 
@@ -419,6 +428,21 @@
             <blockquote>“Fast delivery, well packed, and the wax goes on and buffs off with no streaks at all.”</blockquote>
             <figcaption><span class="avatar">L</span><div><b>Customer name</b><small>Online order</small></div></figcaption>
           </figure>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="section final-cta" id="get-started">
+      <div class="container final-cta__inner">
+        <h2 class="section__title reveal">Your car deserves <span class="chrome">better.</span></h2>
+        <p class="lead reveal">Whether you're taking care of it yourself or leaving it to our experts, start your journey here.</p>
+        <div class="final-cta__actions reveal">
+          <a href="#products" class="btn btn--primary">
+            Shop car care
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#experts" class="btn btn--ghost">Book detailing</a>
+        </div>
       </div>
     </section>
 
