@@ -266,11 +266,6 @@ a:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(4px); }
 }
 .hero__lead { max-width: 44ch; color: #b4bccd; font-size: clamp(16px, 1.35vw, 19px); margin: 0 0 40px; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 14px; }
-.hero__hint { position: absolute; left: 0; right: 0; bottom: 32px; z-index: 2; display: flex; justify-content: flex-end; align-items: center; pointer-events: none; }
-.scroll-cue { pointer-events: auto; display: inline-flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
-.scroll-cue span { position: relative; width: 1px; height: 44px; background: var(--line-2); overflow: hidden; }
-.scroll-cue span::after { content: ""; position: absolute; left: 0; top: -40%; width: 100%; height: 40%; background: var(--accent-2); animation: drip 2s var(--ease) infinite; }
-@keyframes drip { to { top: 100%; } }
 
 .hero .reveal:nth-child(2) { --d: .1s; }
 .hero .reveal:nth-child(3) { --d: .2s; }
@@ -440,6 +435,11 @@ a:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(4px); }
 .layer.is-hot { filter: brightness(1.35); box-shadow: 0 0 0 2px var(--accent-2) inset, 0 0 50px rgba(127,227,255,.35); }
 .layer.is-hot span { color: var(--accent-2); }
 .layers-caption { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.layers-caption .on-touch { display: none; }
+@media (hover: none) {
+  .layers-caption .on-hover { display: none; }
+  .layers-caption .on-touch { display: inline; }
+}
 
 .experts__photo {
   position: relative; margin: 80px 0 0; height: clamp(260px, 38vw, 520px); border-radius: 28px; overflow: hidden; border: 1px solid var(--line);
@@ -767,6 +767,13 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
   .face { min-height: 420px; }
   .face__art { height: 230px; }
   .layers-wrap { height: 460px; }
+  /* stacked order: copy + legend, then the photo/layers stack, then the button */
+  .experts__grid { row-gap: 0; }
+  .experts__copy { display: contents; }
+  .experts__copy > * { order: -1; justify-self: start; }
+  .experts__copy > .layer-legend { justify-self: stretch; }
+  .experts__copy > .btn { order: 1; }
+  .layers-wrap { margin-bottom: 36px; }
   /* stacked layout: move the car photo from behind the copy to behind the layers */
   .experts::before { display: none; }
   .layers-wrap::before {
@@ -778,14 +785,21 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
     mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
   }
   .shield__stage { max-width: 640px; width: 100%; margin: 0 auto; }
-  .shield__copy { order: -1; }
+  /* stacked order: heading + intro, then the 3D shield, then the slider + button */
+  .shield__grid { row-gap: 0; }
+  .shield__copy { display: contents; }
+  .shield__copy > * { order: 1; justify-self: start; }
+  .shield__copy > :is(.eyebrow, .section__title, .lead) { order: -1; }
+  .shield__copy > .coat-control { justify-self: stretch; }
+  .shield__stage { margin-bottom: 32px; }
   .footer__grid { grid-template-columns: repeat(2, 1fr); }
   .footer__brand { grid-column: 1 / -1; }
 }
 
 @media (max-width: 720px) {
   .hero__vignette { background: linear-gradient(0deg, rgba(5,7,11,.95) 0%, rgba(5,7,11,.5) 55%, rgba(5,7,11,.2) 100%); }
-  .hero__content { padding-top: 38vh; padding-bottom: 110px; }
+  .cf-help { display: none; }
+  .hero__content { padding-top: 24vh; padding-bottom: 110px; }
   .hero__cta .btn { flex: 1 1 auto; justify-content: center; }
   .section__head { flex-direction: column; align-items: flex-start; }
   .coverflow { height: 500px; }
@@ -793,10 +807,12 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
   .cf-card__art { height: 220px; }
   .segments__grid { grid-template-columns: 1fr; }
   .panel { min-height: 380px; }
-  .features { grid-template-columns: 1fr; }
-  .feature { border-right: 0; border-bottom: 1px solid var(--line); }
-  .feature:last-child { border-bottom: 0; }
-  .stats { grid-template-columns: 1fr; gap: 0; }
+  /* keeps the 2 × 2 grid from the tablet breakpoint, just more compact */
+  .feature { padding: 22px 16px; }
+  .feature__icon { width: 52px; height: 52px; margin: -4px 0 12px -4px; }
+  .feature h4 { font-size: 14px; }
+  .feature p { font-size: 13px; }
+  .stats { gap: 12px; margin-top: 56px; }
   /* 2 x 2 grid of compact cards */
   .match__panels { gap: 12px; }
   .face { min-height: 300px; padding: 16px 14px; border-radius: 20px; }
@@ -805,7 +821,9 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px 
   .face h3 { margin-bottom: 6px; }
   .face p { font-size: 12.5px; line-height: 1.45; margin-bottom: 12px; }
   .face .link-arrow { font-size: 12.5px; gap: 6px; }
-  .stat { padding: 22px 0; }
+  .stat { padding: 20px 0 0; text-align: center; }
+  .stat b { font-size: clamp(18px, 5.5vw, 30px); margin-bottom: 8px; }
+  .stat span { display: block; font-size: 12px; line-height: 1.35; }
   .layers-wrap { height: 360px; }
   /* labels are hidden here, so drop the desktop label offset; nudge down by half the
      exploded stack's projected height so the whole stack sits centred */

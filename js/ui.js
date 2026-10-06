@@ -330,13 +330,19 @@ if (finePointer) {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  let current = null;
   const highlight = (i) => {
+    current = i;
     layerEls.forEach((el) => el.classList.toggle('is-hot', el.dataset.layer === i));
     legend.forEach((el) => el.classList.toggle('is-hot', el.dataset.layer === i));
   };
   [...layerEls, ...legend].forEach((el) => {
-    el.addEventListener('pointerenter', () => highlight(el.dataset.layer));
-    el.addEventListener('pointerleave', () => highlight(null));
+    el.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') highlight(el.dataset.layer); });
+    el.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') highlight(null); });
+    // touch: a tap selects the layer and keeps it lit; tapping it again clears it
+    el.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'touch') highlight(current === el.dataset.layer ? null : el.dataset.layer);
+    });
   });
 })();
 
