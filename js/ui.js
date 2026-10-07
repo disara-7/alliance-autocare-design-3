@@ -242,6 +242,51 @@ function addToCart(btn) {
   }));
 })();
 
+/* ---------------------------------------------------------------- smooth wheel */
+// Touchpads fire a flood of wheel events, so a fast flick jumps the page far
+// enough to stutter the scroll-driven animations. Instead the wheel moves a
+// target and the page eases toward it, which adds friction to fast scrolls.
+(function smoothWheel() {
+  if (reduced || !finePointer) return;
+  const root = document.documentElement;
+  const FRICTION = 0.09; // share of the remaining distance covered per 60fps frame
+  const MAX_STEP = 90;   // cap per wheel event (px) so hard flicks can't skip sections
+  const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+  let target = 0, current = 0, raf = 0, last = 0;
+
+  // Let nested scroll areas (the chat log etc.) handle their own wheel.
+  const innerScrolls = (el, dy) => {
+    for (; el && el !== document.body && el !== root; el = el.parentElement) {
+      const oy = getComputedStyle(el).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+        if (dy < 0 ? el.scrollTop > 0 : el.scrollTop + el.clientHeight < el.scrollHeight - 1) return true;
+      }
+    }
+    return false;
+  };
+
+  const loop = (now) => {
+    // Something else scrolled the page (anchor link, keyboard, scrollbar): yield to it.
+    if (Math.abs(window.scrollY - Math.round(current)) > 2) { raf = 0; return; }
+    const dt = Math.min(now - last, 64);
+    last = now;
+    current += (target - current) * (1 - Math.pow(1 - FRICTION, dt / 16.67));
+    if (Math.abs(target - current) < 0.5) current = target;
+    window.scrollTo({ top: current, behavior: 'instant' });
+    raf = current === target ? 0 : requestAnimationFrame(loop);
+  };
+
+  window.addEventListener('wheel', (e) => {
+    if (e.ctrlKey || e.defaultPrevented || root.classList.contains('is-loading')) return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
+    if (innerScrolls(e.target, dy)) return;
+    e.preventDefault();
+    if (!raf) { target = current = window.scrollY; last = performance.now(); raf = requestAnimationFrame(loop); }
+    target = clamp(target + clamp(dy, -MAX_STEP, MAX_STEP), 0, root.scrollHeight - window.innerHeight);
+  }, { passive: false });
+})();
+
 /* ---------------------------------------------------------------- theme */
 // Every visit opens in dark; the toggle only lasts for the current page view.
 (function theme() {
